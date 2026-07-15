@@ -1,0 +1,612 @@
+<!DOCTYPE html>
+  <html lang="es">
+  <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>QRA Cirugía Vascular · Consola de Accesos</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --navy:#194E90;
+    --navy-dark:#0F3565;
+    --teal:#007FA8;
+    --teal-light:#4FB3CC;
+    --violet:#6B5A8E;
+    --magenta:#C92B66;
+          --magenta-dark:#A11E51;
+          --bg:#F6F7FA;
+          --surface:#FFFFFF;
+          --border:#E3E7EE;
+          --border-strong:#CBD2DE;
+          --text-primary:#232A36;
+    --text-muted:#69707E;
+    --text-faint:#9BA3B0;
+    --radius:10px;
+}
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+        background:var(--bg);
+    color:var(--text-primary);
+    font-family:'Inter', sans-serif;
+    min-height:100vh;
+    padding:0 0 60px;
+}
+  ::selection{background:var(--magenta); color:#fff;}
+    :focus-visible{outline:2px solid var(--magenta); outline-offset:2px; border-radius:4px;}
+  header{
+        max-width:1080px;
+    margin:0 auto;
+    padding:44px 24px 26px;
+    border-bottom:1px solid var(--border);
+}
+  .brand-row{
+        display:flex;
+    align-items:center;
+    gap:18px;
+}
+  .starburst{
+        flex:none;
+    width:64px;
+    height:64px;
+    animation:spin 90s linear infinite;
+}
+  @media (prefers-reduced-motion: reduce){
+        .starburst{animation:none;}
+}
+  @keyframes spin{ from{transform:rotate(0deg);} to{transform:rotate(360deg);} }
+  .wordmark{
+    font-family:'Poppins', sans-serif;
+    font-weight:800;
+    font-size:clamp(30px,5vw,42px);
+    color:var(--navy);
+    letter-spacing:-0.01em;
+          line-height:1;
+    display:flex;
+    align-items:center;
+    gap:10px;
+  }
+  .wordmark .sep{
+    color:var(--teal);
+    font-size:0.5em;
+}
+  .tagline{
+        font-family:'Poppins', sans-serif;
+        font-weight:600;
+    font-size:12px;
+    letter-spacing:0.22em;
+    text-transform:uppercase;
+    color:var(--navy);
+    margin:4px 0 0;
+}
+  header p.sub{
+        color:var(--text-muted);
+    margin:14px 0 0;
+    font-size:14.5px;
+}
+  .toolbar{
+    max-width:1080px;
+    margin:0 auto;
+    padding:24px 24px 0;
+    display:flex;
+    gap:12px;
+          flex-wrap:wrap;
+    align-items:center;
+    justify-content:space-between;
+}
+  .search{
+              flex:1;
+    min-width:200px;
+    background:var(--surface);
+    border:1px solid var(--border-strong);
+    border-radius:8px;
+    padding:10px 14px;
+        color:var(--text-primary);
+    font-family:'Inter', sans-serif;
+    font-size:14px;
+}
+  .search::placeholder{color:var(--text-faint);}
+  .btn-primary{
+        background:var(--magenta);
+          color:#fff;
+              border:none;
+        border-radius:8px;
+          padding:10px 18px;
+        font-weight:600;
+    font-size:14px;
+    font-family:'Inter', sans-serif;
+        cursor:pointer;
+    white-space:nowrap;
+}
+      .btn-primary:hover{background:var(--magenta-dark);}
+  main{max-width:1080px; margin:0 auto; padding:0 24px;}
+  section.category{margin-top:38px;}
+  .cat-head{
+    display:flex;
+    align-items:center;
+        gap:9px;
+        margin-bottom:14px;
+}
+  .cat-head .dot{width:9px;height:9px;border-radius:50%;}
+  .cat-head h2{
+    font-family:'Poppins', sans-serif;
+          font-size:13px;
+        letter-spacing:0.08em;
+    text-transform:uppercase;
+    font-weight:600;
+          color:var(--navy);
+    margin:0;
+      }
+  .grid{
+                    display:grid;
+              grid-template-columns:repeat(auto-fill, minmax(210px, 1fr));
+    gap:12px;
+}
+  .card{
+        position:relative;
+    background:var(--surface);
+        border:1px solid var(--border);
+    border-radius:var(--radius);
+    padding:16px 16px 14px;
+    cursor:pointer;
+    transition:box-shadow 0.15s ease, border-color 0.15s ease, transform 0.1s ease;
+    min-height:84px;
+        display:flex;
+    flex-direction:column;
+    justify-content:space-between;
+    box-shadow:0 1px 2px rgba(16,24,40,0.04);
+  }
+  .card:hover{border-color:var(--border-strong); box-shadow:0 6px 16px rgba(16,24,40,0.09); transform:translateY(-1px);}
+  .card .name{
+    font-weight:600;
+    font-size:15px;
+    padding-right:44px;
+    word-break:break-word;
+    color:var(--text-primary);
+  }
+  .card-top{
+        display:flex;
+    align-items:center;
+    gap:10px;
+}
+  .card-logo{
+        flex:none;
+    width:30px;
+    height:30px;
+    padding:5px;
+    border-radius:7px;
+    background:#fff;
+        border:1px solid var(--border);
+    object-fit:contain;
+}
+  .card .url{
+    font-family:'Inter', sans-serif;
+    font-size:12px;
+    color:var(--text-faint);
+    margin-top:6px;
+    overflow:hidden;
+    text-overflow:ellipsis;
+    white-space:nowrap;
+  }
+  .card-actions{
+        position:absolute;
+    top:10px; right:10px;
+    display:flex;
+    gap:4px;
+    opacity:0;
+    transition:opacity 0.12s ease;
+}
+  .card:hover .card-actions{opacity:1;}
+  .icon-btn{
+        background:none;
+    border:none;
+    color:var(--text-muted);
+    cursor:pointer;
+    padding:4px;
+    border-radius:5px;
+    display:flex;
+}
+  .icon-btn:hover{background:var(--bg); color:var(--navy);}
+  .card.add-card{
+        border-style:dashed;
+    border-color:var(--border-strong);
+    background:transparent;
+    align-items:center;
+    justify-content:center;
+    flex-direction:row;
+    gap:8px;
+    color:var(--text-muted);
+    font-size:14px;
+    min-height:84px;
+    box-shadow:none;
+}
+  .card.add-card:hover{color:var(--navy); border-color:var(--navy);}
+  .empty-note{
+        color:var(--text-faint);
+    font-size:13px;
+    font-style:italic;
+    padding:6px 2px 2px;
+}
+  .modal-overlay{
+        display:none;
+    position:fixed; inset:0;
+    background:rgba(20,26,38,0.45);
+    align-items:center;
+    justify-content:center;
+    z-index:50;
+    padding:20px;
+}
+  .modal-overlay.open{display:flex;}
+  .modal{
+        background:var(--surface);
+    border:1px solid var(--border);
+    border-radius:12px;
+    width:100%;
+    max-width:380px;
+    padding:22px;
+    box-shadow:0 20px 50px rgba(16,24,40,0.25);
+  }
+  .modal h3{
+        margin:0 0 16px;
+    font-family:'Poppins', sans-serif;
+    font-size:14px;
+    letter-spacing:0.04em;
+    text-transform:uppercase;
+    font-weight:600;
+    color:var(--navy);
+  }
+  .field{margin-bottom:14px;}
+      .field label{
+        display:block;
+    font-size:12.5px;
+    color:var(--text-muted);
+    margin-bottom:6px;
+  }
+  .field input, .field select{
+        width:100%;
+    background:var(--bg);
+    border:1px solid var(--border-strong);
+    border-radius:7px;
+    padding:10px 12px;
+    color:var(--text-primary);
+    font-family:'Inter', sans-serif;
+    font-size:14px;
+}
+  .modal-actions{
+        display:flex;
+    justify-content:flex-end;
+    gap:10px;
+    margin-top:18px;
+}
+  .btn-ghost{
+        background:none;
+    border:1px solid var(--border-strong);
+    color:var(--text-muted);
+    border-radius:7px;
+    padding:9px 14px;
+    font-size:13.5px;
+    cursor:pointer;
+    font-family:'Inter', sans-serif;
+}
+  .btn-ghost:hover{color:var(--text-primary); border-color:var(--text-muted);}
+  footer{
+        max-width:1080px;
+    margin:44px auto 0;
+    padding:16px 24px 0;
+    border-top:1px solid var(--border);
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    flex-wrap:wrap;
+    gap:10px;
+}
+  footer .status{color:var(--text-faint); font-size:12px; font-family:'Inter', sans-serif;}
+  footer .reset-link{
+        background:none; border:none; color:var(--text-faint);
+    font-size:12px; text-decoration:underline; cursor:pointer;
+    font-family:'Inter', sans-serif;
+}
+  footer .reset-link:hover{color:var(--magenta);}
+</style>
+  </head>
+
+  <body>
+  <header>
+    <div class="brand-row">
+      <svg class="starburst" viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="60" cy="60" r="9" fill="#C92B66"/>
+        <circle cx="76" cy="60" r="6" fill="#6B5A8E"/>
+        <circle cx="71.3" cy="71.3" r="6" fill="#6B5A8E"/>
+        <circle cx="60" cy="76" r="6" fill="#6B5A8E"/>
+        <circle cx="48.7" cy="71.3" r="6" fill="#6B5A8E"/>
+        <circle cx="44" cy="60" r="6" fill="#6B5A8E"/>
+        <circle cx="48.7" cy="48.7" r="6" fill="#6B5A8E"/>
+        <circle cx="60" cy="44" r="6" fill="#6B5A8E"/>
+        <circle cx="71.3" cy="48.7" r="6" fill="#6B5A8E"/>
+        <circle cx="88" cy="60" r="4.5" fill="#007FA8"/>
+        <circle cx="79.8" cy="79.8" r="4.5" fill="#007FA8"/>
+        <circle cx="60" cy="88" r="4.5" fill="#007FA8"/>
+        <circle cx="40.2" cy="79.8" r="4.5" fill="#007FA8"/>
+        <circle cx="32" cy="60" r="4.5" fill="#007FA8"/>
+        <circle cx="40.2" cy="40.2" r="4.5" fill="#007FA8"/>
+        <circle cx="60" cy="32" r="4.5" fill="#007FA8"/>
+        <circle cx="79.8" cy="40.2" r="4.5" fill="#007FA8"/>
+        <circle cx="100" cy="60" r="3.2" fill="#4FB3CC"/>
+        <circle cx="88.3" cy="88.3" r="3.2" fill="#4FB3CC"/>
+        <circle cx="60" cy="100" r="3.2" fill="#4FB3CC"/>
+        <circle cx="31.7" cy="88.3" r="3.2" fill="#4FB3CC"/>
+        <circle cx="20" cy="60" r="3.2" fill="#4FB3CC"/>
+        <circle cx="31.7" cy="31.7" r="3.2" fill="#4FB3CC"/>
+        <circle cx="60" cy="20" r="3.2" fill="#4FB3CC"/>
+        <circle cx="88.3" cy="31.7" r="3.2" fill="#4FB3CC"/>
+      </svg>
+      <div>
+        <div class="wordmark">Q<span class="sep">●</span>RA</div>
+        <p class="tagline">Cirugía Vascular</p>
+    </div>
+  </div>
+  <p class="sub">Accesos directos a portales hospitalarios, laboratorio e imagenología.</p>
+  </header>
+  <div class="toolbar">
+    <input type="text" class="search" id="searchInput" placeholder="Buscar acceso por nombre…">
+  </div>
+  <main id="mainContent">
+    <section class="category" data-cat="hospitales">
+      <div class="cat-head"><span class="dot" style="background:var(--navy);"></span><h2>Hospitales</h2></div>
+      <div class="grid" id="grid-hospitales"></div>
+    </section>
+    <section class="category" data-cat="lab">
+      <div class="cat-head"><span class="dot" style="background:var(--teal);"></span><h2>Laboratorio &amp; Imagenología</h2></div>
+    <div class="grid" id="grid-lab"></div>
+  </section>
+  <section class="category" data-cat="otros">
+    <div class="cat-head"><span class="dot" style="background:var(--magenta);"></span><h2>Otros accesos</h2></div>
+      <div class="grid" id="grid-otros"></div>
+    </section>
+  </main>
+  <footer>
+    <span class="status" id="statusText">Cargando…</span>
+    <button class="reset-link" id="btnReset">Restablecer todo</button>
+  </footer>
+
+  <!-- Modal -->
+  <div class="modal-overlay" id="modalOverlay">
+    <div class="modal">
+      <h3 id="modalTitle">Nuevo acceso</h3>
+      <div class="field">
+        <label for="fName">Nombre</label>
+        <input type="text" id="fName" placeholder="Ej. Hospital de los Valles — Reliv">
+      </div>
+      <div class="field">
+        <label for="fUrl">Dirección web (URL)</label>
+        <input type="text" id="fUrl" placeholder="https://...">
+      </div>
+      <div class="field">
+        <label for="fCat">Categoría</label>
+        <select id="fCat">
+          <option value="hospitales">Hospitales</option>
+          <option value="lab">Laboratorio &amp; Imagenología</option>
+        <option value="otros">Otros accesos</option>
+      </select>
+      </div>
+      <div class="modal-actions">
+        <button class="btn-ghost" id="btnCancel">Cancelar</button>
+        <button class="btn-primary" id="btnGuardar">Guardar</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const STORAGE_KEY = 'hospital-links';
+  let links = [];
+  let editingId = null;
+  const grids = {
+        hospitales: document.getElementById('grid-hospitales'),
+              lab: document.getElementById('grid-lab'),
+              otros: document.getElementById('grid-otros'),
+          };
+  const catNames = { hospitales:'Hospitales', lab:'Laboratorio & Imagenología', otros:'Otros accesos' };
+  const LOGO_BY_URL = {
+    'https://ahmi.hospitaldelosvalles.med.ec/': 'https://hospitaldelosvalles.com/wp-content/uploads/2025/11/brand.png',
+        'https://ahmi.hospitaldelosvalles.med.ec/honorarioMedico//login.hdlv': 'https://hospitaldelosvalles.com/wp-content/uploads/2025/11/brand.png',
+        'https://medicos.hospitalmetropolitano.org/ingreso': 'https://www.hospitalmetropolitano.org/img/public/logo-big.svg',
+        'https://imagen.hmetro.med.ec/zfp': 'https://www.hospitalmetropolitano.org/img/public/logo-big.svg',
+        'https://medicos.skn.ec/portal/': 'https://www.skn.ec/wp-content/uploads/2021/12/skn-logo.png',
+        'https://fichasmedicas.sime.com.ec/': 'https://sime.com.ec/hubfs/Marca_SIME_2025_400px.png',
+        'https://hclinica.simeusfq.com/': 'https://sime.com.ec/hubfs/Marca_SIME_2025_400px.png',
+        'https://share.hsforms.com/12plHkLhTRgSD_SoHc7GvwQe8ejf': 'https://sime.com.ec/hubfs/Marca_SIME_2025_400px.png',
+        'https://hodevalles.orion-labs.com/portal?medicoId=984': 'https://hospitaldelosvalles.com/wp-content/uploads/2025/11/brand.png',
+        'https://hodevalles.orion-labs.com/portal/login': 'https://hospitaldelosvalles.com/wp-content/uploads/2025/11/brand.png',
+        'https://docs.google.com/spreadsheets/u/0/d/1SMtlLzLz-dzIBODGo9I3Aw2Y1vyQcmW_4dw-BpzNbds/htmlview#': 'https://hospitaldelosvalles.com/wp-content/uploads/2025/11/brand.png',
+    };
+  const LOGO_BY_HOST_PATTERN = [
+    [/hospitaldelosvalles/i, 'https://hospitaldelosvalles.com/wp-content/uploads/2025/11/brand.png'],
+    [/hospitalmetropolitano|hmetro/i, 'https://www.hospitalmetropolitano.org/img/public/logo-big.svg'],
+    [/skn\.ec/i, 'https://www.skn.ec/wp-content/uploads/2021/12/skn-logo.png'],
+    [/sime\.com\.ec|simeusfq/i, 'https://sime.com.ec/hubfs/Marca_SIME_2025_400px.png'],
+  ];
+  function getLogoSrc(url, hostname){
+    if(LOGO_BY_URL[url]) return LOGO_BY_URL[url];
+    for(const [pattern, src] of LOGO_BY_HOST_PATTERN){
+            if(pattern.test(hostname)) return src;
+    }
+    return hostname ? `https://www.google.com/s2/favicons?domain=${hostname}&sz=64` : '';
+}
+
+  async function loadLinks(){
+    try{
+      const res = await window.storage.get(STORAGE_KEY, false);
+      return res && res.value ? JSON.parse(res.value) : [];
+      }catch(e){
+      return [];
+}
+}
+  async function saveLinks(){
+    try{
+      const result = await window.storage.set(STORAGE_KEY, JSON.stringify(links), false);
+      document.getElementById('statusText').textContent = result ? `${links.length} acceso(s) guardado(s)` : 'No se pudo guardar';
+}catch(e){
+      document.getElementById('statusText').textContent = 'Error al guardar';
+      console.error(e);
+}
+}
+  function normalizeUrl(url){
+    url = url.trim();
+    if(!/^https?:\/\//i.test(url)){
+      url = 'https://' + url;
+}
+    return url;
+}
+
+  function render(filterText=''){
+    Object.keys(grids).forEach(cat => grids[cat].innerHTML = '');
+    const q = filterText.trim().toLowerCase();
+    Object.keys(grids).forEach(cat => {
+      const items = links.filter(l => l.category === cat && l.name.toLowerCase().includes(q));
+      if(items.length === 0 && q === ''){
+        const note = document.createElement('div');
+        note.className = 'empty-note';
+        note.textContent = `Sin accesos en ${catNames[cat].toLowerCase()} todavía.`;
+        grids[cat].appendChild(note);
+}
+      items.forEach(link => {
+        const card = document.createElement('div');
+        card.className = 'card';
+        let hostname = '';
+        try{ hostname = new URL(link.url).hostname; }catch(e){ hostname = ''; }
+        const logoSrc = getLogoSrc(link.url, hostname);
+        const fallbackSrc = hostname ? `https://www.google.com/s2/favicons?domain=${hostname}&sz=64` : '';
+        card.innerHTML = `
+          <div class="card-actions">
+            <button class="icon-btn" data-action="edit" data-id="${link.id}" title="Editar" aria-label="Editar acceso">✎</button>
+            <button class="icon-btn" data-action="delete" data-id="${link.id}" title="Eliminar" aria-label="Eliminar acceso">✕</button>
+          </div>
+          <div class="card-top">
+            ${logoSrc ? `<img class="card-logo" src="${logoSrc}" data-fallback="${fallbackSrc}" alt="" loading="lazy" onerror="if(this.dataset.fallback){this.src=this.dataset.fallback;this.dataset.fallback='';}else{this.style.display='none';}">` : ''}
+            <div class="name">${escapeHtml(link.name)}</div>
+          </div>
+          <div class="url">${escapeHtml(link.url.replace(/^https?:\/\//,''))}</div>
+        `;
+        card.addEventListener('click', (e) => {
+          if(e.target.closest('.icon-btn')) return;
+          window.open(link.url, '_blank', 'noopener,noreferrer');
+});
+        grids[cat].appendChild(card);
+});
+});
+    document.querySelectorAll('[data-action="edit"]').forEach(btn=>{
+      btn.addEventListener('click', () => openModal('edit', null, btn.dataset.id));
+});
+    document.querySelectorAll('[data-action="delete"]').forEach(btn=>{
+      btn.addEventListener('click', () => handleDelete(btn.dataset.id));
+});
+}
+  function escapeHtml(str){
+    const div = document.createElement('div');
+    div.textContent = str;
+    return div.innerHTML;
+}
+
+  function openModal(mode, presetCat, id){
+    editingId = mode === 'edit' ? id : null;
+    document.getElementById('modalTitle').textContent = mode === 'edit' ? 'Editar acceso' : 'Nuevo acceso';
+    if(mode === 'edit'){
+      const link = links.find(l => l.id === id);
+      document.getElementById('fName').value = link.name;
+      document.getElementById('fUrl').value = link.url;
+      document.getElementById('fCat').value = link.category;
+} else {
+      document.getElementById('fName').value = '';
+      document.getElementById('fUrl').value = '';
+      document.getElementById('fCat').value = presetCat || 'hospitales';
+}
+    document.getElementById('modalOverlay').classList.add('open');
+    document.getElementById('fName').focus();
+}
+  function closeModal(){
+    document.getElementById('modalOverlay').classList.remove('open');
+    editingId = null;
+}
+  async function handleSave(){
+    const name = document.getElementById('fName').value.trim();
+    let url = document.getElementById('fUrl').value.trim();
+    const category = document.getElementById('fCat').value;
+    if(!name || !url){
+      alert('Completa el nombre y la dirección web.');
+      return;
+}
+    url = normalizeUrl(url);
+    if(editingId){
+      const link = links.find(l => l.id === editingId);
+      link.name = name; link.url = url; link.category = category;
+} else {
+      links.push({ id: 'l_' + Date.now() + '_' + Math.random().toString(36).slice(2,7), name, url, category });
+}
+    await saveLinks();
+    render(document.getElementById('searchInput').value);
+    closeModal();
+}
+  async function handleDelete(id){
+    const link = links.find(l => l.id === id);
+    if(!link) return;
+    if(!confirm(`¿Eliminar "${link.name}"?`)) return;
+    links = links.filter(l => l.id !== id);
+    await saveLinks();
+    render(document.getElementById('searchInput').value);
+}
+
+  document.getElementById('btnCancel').addEventListener('click', closeModal);
+  document.getElementById('btnGuardar').addEventListener('click', handleSave);
+  document.getElementById('modalOverlay').addEventListener('click', (e) => {
+    if(e.target.id === 'modalOverlay') closeModal();
+});
+  document.getElementById('searchInput').addEventListener('input', (e) => render(e.target.value));
+  document.getElementById('btnReset').addEventListener('click', async () => {
+    if(!confirm('Esto eliminará todos los accesos guardados. ¿Continuar?')) return;
+    try{
+      await window.storage.delete(STORAGE_KEY, false);
+}catch(e){ /* key may not exist yet */ }
+    links = [];
+    render();
+    document.getElementById('statusText').textContent = 'Restablecido';
+    });
+  const DEFAULT_LINKS = [
+{ name: 'SKN — Portal Imágenes', url: 'https://medicos.skn.ec/portal/', category: 'lab' },
+{ name: 'Hospital Metropolitano — Imagen', url: 'https://imagen.hmetro.med.ec/zfp', category: 'lab' },
+{ name: 'Laboratorio HDLV', url: 'https://hodevalles.orion-labs.com/portal?medicoId=984', category: 'lab' },
+{ name: 'Laboratorio HDLV — Ingreso', url: 'https://hodevalles.orion-labs.com/portal/login', category: 'lab' },
+{ name: 'Horarios SIME', url: 'https://hclinica.simeusfq.com/', category: 'otros' },
+{ name: 'Honorarios Hospital de los Valles', url: 'https://ahmi.hospitaldelosvalles.med.ec/honorarioMedico//login.hdlv', category: 'otros' },
+{ name: 'Cierre Agenda SIME', url: 'https://share.hsforms.com/12plHkLhTRgSD_SoHc7GvwQe8ejf', category: 'otros' },
+{ name: 'Bitácora Pacientes HDLV', url: 'https://docs.google.com/spreadsheets/u/0/d/1SMtlLzLz-dzIBODGo9I3Aw2Y1vyQcmW_4dw-BpzNbds/htmlview#', category: 'otros' },
+{ name: 'SIME', url: 'https://fichasmedicas.sime.com.ec/', category: 'hospitales' },
+{ name: 'Hospital Metropolitano', url: 'https://medicos.hospitalmetropolitano.org/ingreso', category: 'hospitales' },
+{ name: 'Hospital de los Valles', url: 'https://ahmi.hospitaldelosvalles.med.ec/sishos/index.xhtml', category: 'hospitales' },
+  ];
+  const URL_MIGRATIONS = {
+    'https://ahmi.hospitaldelosvalles.med.ec/': 'https://ahmi.hospitaldelosvalles.med.ec/sishos/index.xhtml',
+};
+  (async function init(){
+    links = await loadLinks();
+    let changed = false;
+    links.forEach(l => {
+      if(URL_MIGRATIONS[l.url]){
+        l.url = URL_MIGRATIONS[l.url];
+        changed = true;
+        }
+});
+    DEFAULT_LINKS.forEach(dl => {
+      if(!links.some(l => l.url === dl.url)){
+        links.push({ id: 'l_' + Date.now() + '_' + Math.random().toString(36).slice(2,7), ...dl });
+        changed = true;
+}
+});
+    if(changed) await saveLinks();
+    render();
+    document.getElementById('statusText').textContent = `${links.length} acceso(s) guardado(s)`;
+})();
+</script>
+</body>
+</html>
